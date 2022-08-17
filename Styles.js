@@ -50,6 +50,14 @@ const style = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 10,
         margin: 5,
+    },
+    icon:{
+        backgroundColor:'white',
+        padding:5,
+    },
+    resource:{
+        padding: 32,
+        backgroundColor: 'white'
     }
     
 })

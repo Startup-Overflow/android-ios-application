@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { View, Text } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import React from 'react';
 import HOST from "../Hosts";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ListItem, Avatar } from "@react-native-material/core";
 
 const Post = (props) => {
     return(
@@ -29,10 +30,36 @@ const Blogs = () => {
         })()},[])
     
     return(
-        <View>
-            <Text>Hello World</Text>
+        <ScrollView>
+            <ListItem
+                leadingMode="avatar"
+                leading={
+                    <Avatar image={{ uri: "https://mui.com/static/images/avatar/1.jpg" }} />
+                }
+                title="Brunch this weekend?"
+                secondaryText="I'll be in your neighborhood doing errands this…"
+            />
+            <View style={{backgroundColor:'#ffffff', margin:5, marginTop:-1, marginBottom:10, paddingLeft:30, }}>
+                <Text style={{textAlign: 'left', position: 'absolute', fontSize:15}}>Posted 3 Min ago by Ujjwal</Text>
+                <Text style={{textAlign: 'right', fontSize:15}}>13 Comments</Text>
+            </View>
+            
+
+            <ListItem
+                leadingMode="avatar"
+                leading={
+                    <Avatar image={{ uri: "https://mui.com/static/images/avatar/1.jpg" }} />
+                }
+                title="Brunch this weekend?"
+                secondaryText="I'll be in your neighborhood doing errands this…"
+            />
+            <View style={{backgroundColor:'#ffffff', margin:5, marginTop:-1, marginBottom:10, paddingLeft:30, }}>
+                <Text style={{textAlign: 'left', position: 'absolute', fontSize:15}}>Posted 3 Min ago by Ujjwal</Text>
+                <Text style={{textAlign: 'right', fontSize:15}}>13 Comments</Text>
+            </View>
+
             {posts.map(post => <Post key={post.id} id={post.id} title={post.title}/> )}
-        </View>
+        </ScrollView>
     );
 }
 

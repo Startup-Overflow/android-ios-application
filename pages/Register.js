@@ -9,7 +9,7 @@ import { isLogedIn } from "./Auth.js";
 const Register = (props) => {
     (async () =>{
         if (await isLogedIn()){
-            props.navigation.navigate("Home")
+            props.navigation.navigate("HomeScreen")
         }
     })()
     const [first_name, setFirstName] = useState('');
