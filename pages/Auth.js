@@ -8,8 +8,15 @@ const isLogedIn = async () => {
     else return false  
 }
 
+const isNotLogedIn = async () => {
+    const value = await AsyncStorage.getItem("token");  
+    if (value==null)
+        return true
+    else return false  
+}
+
 const LogOut = async () => {
     await AsyncStorage.removeItem("token");
 }
 
-export {LogOut, isLogedIn}
+export {LogOut, isLogedIn, isNotLogedIn}

@@ -1,58 +1,49 @@
-import React from "react";
-import { StyleSheet, View, Text } from 'react-native';
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, Text, RefreshControl } from 'react-native';
 import { SectionGrid } from 'react-native-super-grid';
+import HOST from "../Hosts";
 
-const Learn = () => {
-    const items = [
-        { name: 'How to start a Business ?', code: '#2abc8c' },
-        { name: 'Startup Kit', code: '#2ecc71' },
-        { name: 'Startup Guidebook', code: '#3498db' },
-        { name: 'Get Recognized', code: '#8e44ad' },
-        { name: 'Funding Guide', code: '#9b59b6' },
-        { name: 'Startup Challanges', code: '#34495e' },
-        { name: 'Market Research Report', code: '#d35400' },
-        { name: 'Patent your business plan', code: '#27ae60' },
-        { name: 'Online Courses', code: '#2980b9' },
-    
-        { name: 'Woman in Business', code: '#2980b9' },
-        { name: 'Story of a CEO', code: '#8e44ad' },
-        { name: 'Nari Shakti', code: '#2c3e50' },
-    
-        { name: 'Advertisement', code: '#e67e22' },
-        { name: 'Branding & Marketing', code: '#e74c3c' },
-        { name: 'CONCRETE', code: '#95a5a6' },
-    ];
+const Learn = (props) => {
+  const [learn, setLearn] = useState([{'name':'loading...', 'id':0}])
+  // console.log(props.route.params)
+  useEffect(() => {
+    fetch(`${HOST}/categories`,{
+      method:"GET",
+      headers: {
+        "Content-Type": "application/json",
+      }
+  })
+  .then(resp => resp.json())
+  .then(resp => setLearn(resp))
+  .catch(error => console.log(error))
+  },[])
 
-    return(
+    return( 
         <SectionGrid
-        itemDimension={100}
-        sections={[
-          {
-            // title: 'Start a Business',
-            data: items.slice(0, 9),
-          },
-        //   {
-        //     title: 'Woman Entrepreneurship',
-        //     data: items.slice(9, 12),
-        //   },
-        //   {
-        //     title: 'Grow Your Business',
-        //     data: items.slice(12, 14),
-        //   },
-          // {
-          //     title: 'Scheme and Policies',
-          //     data: items.slice(12, 20),
-          // },
-      ]}
-        style={styles.gridView}
-        renderItem={({ item }) => (
-          <View style={[styles.itemContainer, { backgroundColor: item.code }]}>
-            <Text style={styles.itemName}>{item.name}</Text>
-          </View>
-        )}
-        // renderSectionHeader={({ section }) => (
-        //   <Text style={styles.sectionHeader}>{section.title}</Text>
-        // )}
+          itemDimension={100}
+          sections={[
+            {
+              data: learn
+            },
+          ]}
+          style={styles.gridView}
+          renderItem={({ item }) => (
+            <View>
+              {item.id==0? <Text>Loading...</Text>:
+                <View style={[styles.itemContainer, { backgroundColor: 'black' }]} >
+                  <Text style={styles.itemName} onPress={() => props.navigation.navigate({
+                    name:'SBlog',
+                    params: {post: "categories/"+item.id}
+                  })}>
+                    {item.name}
+                  </Text>
+                </View>
+              }
+            </View>
+          )}
+          // renderSectionHeader={({ section }) => (
+          //   <Text style={styles.sectionHeader}>{section.title}</Text>
+          // )}
       />
     )
 }

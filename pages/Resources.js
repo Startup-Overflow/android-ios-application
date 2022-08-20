@@ -10,29 +10,23 @@ import { SectionGrid } from 'react-native-super-grid';
 
 const Resources = ({navigation}) => {
   const items = [
-    { name: 'How to start a Business ?', code: '#2abc8c', page:'resources' ,id:1 },
-    { name: 'Startup Kit', code: '#2ecc71', page:'resources' ,id:2 },
-    { name: 'Startup Guidebook', code: '#3498db', page:'resources' ,id:3 },
-    { name: 'Get Recognized', code: '#8e44ad', page:'resources' ,id:4 },
-    { name: 'Funding Guide', code: '#9b59b6', page:'resources' ,id:5 },
-    { name: 'Startup Challanges', code: '#34495e', page:'resources' ,id:8 },
-    { name: 'Market Research Report', code: '#d35400', page:'resources' ,id:6 },
-    { name: 'Patent your business plan', code: '#27ae60', page:'resources' ,id:7 },
-    { name: 'Online Courses', code: '#2980b9', page:'resources' ,id:2 },
+    { name: 'How to start a Business ?', code: '#2abc8c', page:'resources', id:1 },
+    { name: 'Startup Kit', code: '#2ecc71', page:'resources', id:2 },
+    { name: 'Startup Guidebook', code: '#3498db', page:'resources', id:3 },
+    { name: 'Get Recognized', code: '#8e44ad', page:'resources', id:4 },
+    { name: 'Funding Guide', code: '#9b59b6', page:'resources', id:5 },
+    { name: 'Startup Challanges', code: '#34495e', page:'resources', id:8 },
+    { name: 'Market Research Report', code: '#d35400', page:'resources', id:6 },
+    { name: 'Patent your business plan', code: '#27ae60', page:'resources', id:7 },
+    { name: 'Online Courses', code: '#2980b9', page:'resources', id:2 },
 
-    { name: 'Woman in Business', code: '#2980b9', id:2 },
-    { name: 'Story of a CEO', code: '#8e44ad', id:2 },
-    { name: 'Nari Shakti', code: '#2c3e50', id:2 },
+    { name: 'Woman in Business', code: '#2980b9', page:'resources', id:9  },
+    { name: 'Story of a CEO', code: '#8e44ad', page:'categories', id:14 },
+    { name: 'Nari Shakti', code: '#2c3e50', page:'resources' ,id:10  },
 
-    { name: 'Advertisement', code: '#e67e22', id:2 },
-    { name: 'Branding & Marketing', code: '#e74c3c', id:2 },
-    { name: 'CONCRETE', code: '#95a5a6', id:2 },
+    { name: 'Advertisement', code: '#e67e22', page:'categories', id:15 },
+    { name: 'Branding & Marketing', code: '#e74c3c', page:'categories', id:16 },
 
-    // { name: 'ORANGE', code: '#f39c12' },
-    // { name: 'PUMPKIN', code: '#d35400' },
-    // { name: 'POMEGRANATE', code: '#c0392b' },
-    // { name: 'SILVER', code: '#bdc3c7' },
-    // { name: 'ASBESTOS', code: '#7f8c8d' },
   ];
 
   return (
@@ -54,11 +48,18 @@ const Resources = ({navigation}) => {
     ]}
       style={styles.gridView}
       renderItem={({ item }) => (
-        <View style={[styles.itemContainer, { backgroundColor: item.code }]} onPress={() => console.log("hello")}>
-          <Text style={styles.itemName}  onPress={() => navigation.navigate({
-                            name:'Read',
-                            params: {post: item.page+"/"+item.id}
+        <View key={item.id} id={item.id} style={[styles.itemContainer, { backgroundColor: item.code }]} onPress={() => console.log("hello")}>
+          {item.page=='resources'?
+            <Text style={styles.itemName}  onPress={() => navigation.navigate({
+                          name:'ReadResources',
+                          params: {post: "resources/"+item.id }
                         })}>{item.name}</Text>
+          :<Text style={styles.itemName}  onPress={() => navigation.navigate({
+                          name:'SBlog',
+                          params: {post: "categories/"+item.id }
+                        })}>{item.name}</Text>
+
+          }
         </View>
       )}
       renderSectionHeader={({ section }) => (

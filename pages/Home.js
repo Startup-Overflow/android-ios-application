@@ -11,6 +11,7 @@ import { ScrollView, TextInput } from "react-native-gesture-handler";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Octicons from 'react-native-vector-icons/Octicons';
 import AddPost from "./AddPost";
 import Resources from "./Resources";
@@ -30,6 +31,11 @@ import Learn from "./Learn";
 import { ListItem, Avatar } from "@react-native-material/core";
 import { Text as MaterialText } from "@react-native-material/core";
 import Books from "./Books";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { isNotLogedIn } from "./Auth";
+import Profile from "./Profile";
+// import CheckUser from "./CheckUser";
+import Add from "./Add";
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -37,8 +43,29 @@ const Tab = createBottomTabNavigator();
 const bottomHeight = 60
 
 const Footer = (props) => {
+    (async () =>{
+        if (await isNotLogedIn()){
+            props.navigation.navigate("Register")
+        }
+    })()
+
     return(
         <Tab.Navigator>
+        {/* <Tab.Screen name="CheckUser" 
+            component={CheckUser} 
+            options={{
+                title: 'CheckUser',
+                tabBarIcon: () => <FontAwesome5.Button 
+                                        style={style.icon} 
+                                        color="#000000" 
+                                        size={25} 
+                                        name="box-open"
+                                        onPress={() => props.navigation.navigate('CheckUser')}
+                                    />,
+                headerShown: false,
+                tabBarStyle: { height: bottomHeight },
+            }}
+        /> */}
         <Tab.Screen name="Resources" 
             component={Resources} 
             options={{
@@ -54,10 +81,27 @@ const Footer = (props) => {
                 tabBarStyle: { height: bottomHeight },
             }}
         />
-        <Tab.Screen name="BusinessIdeas" 
+
+        <Tab.Screen name="Learn" 
+            component={Learn} 
+            options={{
+                title: 'Learn',
+                tabBarIcon: () => <FontAwesome.Button 
+                                        style={style.icon} 
+                                        color="#000000" 
+                                        size={27} 
+                                        name="graduation-cap"
+                                        onPress={() => props.navigation.navigate({name:'Learn', params: 'categories'})}
+                                    />,
+                headerShown: false,
+                tabBarStyle: { height: bottomHeight },
+            }}
+        />
+
+        {/* <Tab.Screen name="BusinessIdeas" 
             component={BusinessIdeas} 
             options={{
-                title: 'Business Ideas',
+                title: 'Ideas',
                 tabBarIcon: () => <MaterialCommunityIcons.Button 
                                         style={style.icon} 
                                         color="#000000" 
@@ -68,17 +112,17 @@ const Footer = (props) => {
                 headerShown: false,
                 tabBarStyle: { height: bottomHeight },
             }}
-        />
-        <Tab.Screen name="Learn" 
-            component={Learn} 
+        /> */}
+        <Tab.Screen name="Add" 
+            component={Add} 
             options={{
-                title: 'Learn',
-                tabBarIcon: () => <FontAwesome.Button 
+                title: 'ADD',
+                tabBarIcon: () => <MaterialIcons.Button 
                                         style={style.icon} 
                                         color="#000000" 
                                         size={30} 
-                                        name="graduation-cap"
-                                        onPress={() => props.navigation.navigate('Learn')}
+                                        name="add-circle-outline"
+                                        onPress={() => props.navigation.navigate('Add')}
                                     />,
                 headerShown: false,
                 tabBarStyle: { height: bottomHeight },
@@ -97,7 +141,10 @@ const Footer = (props) => {
                                         color="#000000" 
                                         size={25} 
                                         name="feed"
-                                        onPress={() => props.navigation.navigate('Blogs')}
+                                        onPress={() => props.navigation.navigate({
+                                            name:'Blogs',
+                                            params: {post: 'posts'}
+                                        })}
                                     />,
                 headerShown: false,
                 tabBarStyle: { height: bottomHeight },
@@ -118,7 +165,6 @@ const Footer = (props) => {
                 tabBarStyle: { height: bottomHeight },
             }}
         />
-
         </Tab.Navigator>
     )
 }
@@ -141,9 +187,15 @@ const Home = (props) => {
                 />
                     <ListItem
                         title="Home"
-                        leading={<FontAwesome5 name="chalkboard-teacher" size={18} />}
+                        leading={<FontAwesome5 name="home" size={18} />}
                         trailing={props => <MaterialCommunityIcons name="chevron-right" {...props} />}
                         onPress={() => props.navigation.navigate('Home')}
+                    />
+                    <ListItem
+                        title="Profile"
+                        leading={<Ionicons name="person" size={18} />}
+                        trailing={props => <MaterialCommunityIcons name="chevron-right" {...props} />}
+                        onPress={() => props.navigation.navigate('Profile')}
                     />
                     <ListItem
                         title="Mentors"
@@ -155,80 +207,94 @@ const Home = (props) => {
                         })}
                     />
                     <ListItem
-                        title="Partners"
-                        leading={<FontAwesome5 name="chalkboard-teacher" size={18} />}
+                        title="Ask for Partnersip"
+                        leading={<MaterialCommunityIcons name="handshake" size={18} />}
                         trailing={props => <MaterialCommunityIcons name="chevron-right" {...props} />}
                         onPress={() => props.navigation.navigate('Partners')}
                     />
                     <ListItem
                         title="Investors"
-                        leading={<FontAwesome5 name="chalkboard-teacher" size={18} />}
+                        leading={<FontAwesome5 name="money-bill-wave" size={18} />}
                         trailing={props => <MaterialCommunityIcons name="chevron-right" {...props} />}
                         onPress={() => props.navigation.navigate('Investors')}
                     />
                     <ListItem
                         title="Incubators"
-                        leading={<FontAwesome5 name="chalkboard-teacher" size={18} />}
+                        leading={<MaterialCommunityIcons name="desktop-classic" size={18} />}
                         trailing={props => <MaterialCommunityIcons name="chevron-right" {...props} />}
                         onPress={() => props.navigation.navigate('Incubators')}
                     />
                     <ListItem
                         title="Online Courses"
-                        leading={<FontAwesome5 name="chalkboard-teacher" size={18} />}
+                        leading={<MaterialCommunityIcons name="desktop-classic" size={18} />}
                         trailing={props => <MaterialCommunityIcons name="chevron-right" {...props} />}
-                        onPress={() => props.navigation.navigate('OnlineCourses')}
+                        onPress={() => props.navigation.navigate('Courses')}
                     />
                     <ListItem
                         title="Books and Summeries"
-                        leading={<FontAwesome5 name="chalkboard-teacher" size={18} />}
+                        leading={<MaterialCommunityIcons name="bookshelf" size={18} />}
                         trailing={props => <MaterialCommunityIcons name="chevron-right" {...props} />}
                         onPress={() => props.navigation.navigate('Books')}
                     />
                     <ListItem
                         title="Events"
-                        leading={<FontAwesome5 name="chalkboard-teacher" size={18} />}
+                        leading={<SimpleLineIcons name="event" size={18} />}
                         trailing={props => <MaterialCommunityIcons name="chevron-right" {...props} />}
                         onPress={() => props.navigation.navigate('Events')}
                     />
                     <ListItem
                         title="Schemes and Policies"
-                        leading={<FontAwesome5 name="chalkboard-teacher" size={18} />}
+                        leading={<MaterialIcons name="policy" size={18} />}
                         trailing={props => <MaterialCommunityIcons name="chevron-right" {...props} />}
                         onPress={() => props.navigation.navigate('Schemes')}
                     />
                     <ListItem
                         title="Settings"
-                        leading={<FontAwesome5 name="chalkboard-teacher" size={18} />}
+                        leading={<Ionicons name="settings-outline" size={18} />}
                         trailing={props => <MaterialCommunityIcons name="chevron-right" {...props} />}
                         onPress={() => props.navigation.navigate('Schemes')}
                     />
                     <ListItem
                         title="Privacy Policy"
-                        leading={<FontAwesome5 name="chalkboard-teacher" size={18} />}
+                        leading={<MaterialIcons name="privacy-tip" size={18} />}
                         trailing={props => <MaterialCommunityIcons name="chevron-right" {...props} />}
                         onPress={() => props.navigation.navigate('Schemes')}
                     />
                     <ListItem
                         title="Terms and Conditions"
-                        leading={<FontAwesome5 name="chalkboard-teacher" size={18} />}
+                        leading={<MaterialCommunityIcons name="file-document-edit" size={18} />}
                         trailing={props => <MaterialCommunityIcons name="chevron-right" {...props} />}
                         onPress={() => props.navigation.navigate('Schemes')}
                     />
                     <ListItem
                         title="Logout"
-                        leading={<FontAwesome5 name="chalkboard-teacher" size={18} />}
+                        leading={<MaterialCommunityIcons name="logout" size={18} />}
                         trailing={props => <MaterialCommunityIcons name="chevron-right" {...props} />}
-                        onPress={() => props.navigation.navigate('Schemes')}
+                        onPress={() => 
+                            (async(key) => {
+                                try {
+                                    await AsyncStorage.removeItem('token');
+                                    props.navigation.navigate('Register')
+                                }
+                                catch(exception) {
+                                    return console.log(exception);
+                                }
+                            })()
+
+                            
+                        }
                     />
              </ScrollView>}
         >
             <Drawer.Screen name="Home" options={options} component={Footer}/>
+            <Drawer.Screen name="Profile" options={options} component={Profile}/>
+            <Drawer.Screen name="Add" options={options} component={Add}/>
             <Drawer.Screen name="Mentors" options={options} component={Mentors}/>
             <Drawer.Screen name="Partners" options={options} component={Partners}/>
             <Drawer.Screen name="Investors" options={options} component={Investors}/>
             <Drawer.Screen name="Incubators" options={options} component={Incubators}/>
             <Drawer.Screen name="Schemes" options={options} component={Schemes}/>
-            <Drawer.Screen name="Online Courses" options={options} component={OnlineCourses}/>
+            <Drawer.Screen name="Courses" options={options} component={OnlineCourses}/>
             <Drawer.Screen name="Events" options={options} component={Events}/>
             <Drawer.Screen name="Books" options={options} component={Books}/>
         </Drawer.Navigator>

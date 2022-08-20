@@ -41,29 +41,31 @@ const Article = (props) => {
         }, 4000)
     }
 
-    const like = async (e) =>{
-        const token = await AsyncStorage.getItem("token");  
+    // const like = async (e) =>{
+    //     const token = await AsyncStorage.getItem("token");  
 
-        const response = await fetch(`${HOST}/posts/like/${id}/`,{
-            method:"POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Token ${token}`
-            },
-        })
-    } 
+    //     const response = await fetch(`${HOST}/posts/like/${id}/`,{
+    //         method:"POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             "Authorization": `Token ${token}`
+    //         },
+    //     })
+    // } 
 
-    const unlike = async (e) =>{
-        const token = await AsyncStorage.getItem("token");  
+    // const unlike = async (e) =>{
+    //     const token = await AsyncStorage.getItem("token");  
 
-        const response = await fetch(`${HOST}/unlike/${id}/`,{
-            method:"POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Token ${token}`
-            },
-        })
-    } 
+    //     const response = await fetch(`${HOST}/unlike/${id}/`,{
+    //         method:"POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             "Authorization": `Token ${token}`
+    //         },
+    //     })
+    // } 
+
+    console.log(url)
 
     useEffect(() => {
         fetch(`${url}`,{
@@ -77,23 +79,26 @@ const Article = (props) => {
       .catch(error => console.log(error))
       },[])
 
-      useEffect(() => {
-        fetch(`${HOST}/posts/commentview/${id}`,{
-          method:"GET",
-          headers: {
-            "Content-Type": "application/json",
-          }
-      })
-      .then(resp => resp.json())
-      .then(resp => setALlComments(resp))
-      .catch(error => console.log(error))
-      },[])
+    //   useEffect(() => {
+    //     fetch(`${HOST}/posts/commentview/${id}`,{
+    //       method:"GET",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       }
+    //   })
+    //   .then(resp => resp.json())
+    //   .then(resp => setALlComments(resp))
+    //   .catch(error => console.log(error))
+    //   },[])
 
       
       const html = `${posts["desc"]}`
       console.log(posts)
 
     return(
+        // <Text>
+        //     {posts.title}
+        // </Text>
         <ScrollView refreshControl={<RefreshControl refreshing={refresh} onRefresh={()=>pullMe()}/>}>
             <MaterialText variant="h5" style={{paddingBottom:20}}>{posts.title}</MaterialText>
             {
@@ -111,7 +116,7 @@ const Article = (props) => {
                             li:{fontFamily:'Montserrat-Regular**',lineHeight: 23,color:'#58585A',fontSize:16,marginBottom:16}, 
                             }} 
             />
-        <View style={{flexDirection: "row", paddingTop: 30}}>
+        {/* <View style={{flexDirection: "row", paddingTop: 30}}>
             <Text>{posts.like}</Text>
             <Fontisto.Button 
                 style={styles.like} 
@@ -127,22 +132,18 @@ const Article = (props) => {
                 size={17} 
                 name="dislike"
                 onPress={() => unlike()}
-            />
-            </View>
-            <MaterialText variant="h5" style={{margin: 20}}>Comments</MaterialText>
+            /> */}
+            {/* </View> */}
+            <MaterialText variant="h5" style={{margin: 20}}>Answers</MaterialText>
             {allcomments.map((e)=> <Comment id={e.id} key={e.key} comment={e.comment} username={e.username}/>)}
         </ScrollView>
     )
 }
 
-const Read = (props) => {
+const ReadQuestions = (props) => {
+
     const [addComment, setComment] = useState()
     url = HOST+"/"+props.route.params.post
-    id = props.route.params.ids
-    type = props.route.params.type
-    console.log(id, url)
-
-    console.log(props.route.params.type=="resources")
     const { width } = useWindowDimensions();
 
     const submit = async (e) => {
@@ -165,7 +166,7 @@ const Read = (props) => {
         console.log("Got Response...")
         const content = await response.json()
         console.log(content)
-}
+    }
 
     return(
         <Tab.Navigator>
@@ -174,8 +175,6 @@ const Read = (props) => {
             options={{
                 title: '',
                 tabBarLabel: () => 
-                // {
-                    // props.route.params.type=="posts"? 
                     <View style={{flexDirection: "row", padding: 10}}>
                         <TextInput 
                             placeholder="Add a comment..." 
@@ -205,4 +204,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Read
+export default ReadQuestions

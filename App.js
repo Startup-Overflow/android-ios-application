@@ -7,10 +7,16 @@ import Register from './pages/Register.js';
 import Home from './pages/Home.js';
 import AddPost from './pages/AddPost.js';
 import Read from './pages/Read.js';
+import ReadResources from './pages/ReadResources.js';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AntDesign from 'react-native-vector-icons/AntDesign.js';
 import style from './Styles.js';
+import SBlog from './pages/SBlog.js';
+import OnlineCourses from './pages/OnlineCourses.js';
+import ReadQuestions from './pages/ReadQuestions.js';
+import Loading from './pages/Loading.js';
+import CheckUser from './pages/CheckUser.js';
 
 const Stack = createStackNavigator();
 
@@ -19,6 +25,26 @@ const App = () => {
 
     <NavigationContainer>
     <Stack.Navigator>
+    <Stack.Screen 
+        name="Loading" 
+        component={Loading}
+        options={{
+          title: 'Loading',
+          headerShown: false,
+          cardStyle: { backgroundColor: '#d9d9d9' },
+        }}  
+      />
+
+      {/* <Stack.Screen 
+        name="CheckUser" 
+        component={CheckUser}
+        options={{
+          title: 'CheckUser',
+          headerShown: false,
+          cardStyle: { backgroundColor: '#d9d9d9' },
+        }}  
+      /> */}
+
       <Stack.Screen 
         name="Register" 
         component={Register}
@@ -74,32 +100,97 @@ const App = () => {
         component={Read}
         options={{
           title:'Back',
-          headerLeft: ({ navigation: { goBack } }) =>  <AntDesign.Button 
-                              style={style.icon} 
-                              color="#000000" 
-                              size={25} 
-                              name="back"
-                              // onPress={() => goBack()}
-                          />,
+          // headerLeft: (props) =>  <AntDesign.Button 
+          //                     style={style.icon} 
+          //                     color="#000000" 
+          //                     size={25} 
+          //                     name="back"
+          //                     onPress={() => props.navigation.navigate('Blogs')}
+                          // />,
           headerRight: (props) =>
             <Image 
                 source={require('./logo.png')} 
                 style={{ width: 170, height: 80, }}
             />
           }}
-            // cardStyle: { backgroundColor: '#d9d9d9' },
-          // tabBarOptions: { 
-          //   showIcon: true 
-          //   },
-            // leftButton: () => <AntDesign.Button 
-            //                     style={style.icon} 
-            //                     color="#000000" 
-            //                     size={25} 
-            //                     name="back"
-            //                     onPress={() => props.navigation.navigate('Blogs')}
-            //                 />,
-        // }}  
       />
+      <Stack.Screen 
+        name="ReadResources" 
+        component={ReadResources}
+        options={{
+          title:'Back',
+          // headerLeft: (props) =>  <AntDesign.Button 
+          //                     style={style.icon} 
+          //                     color="#000000" 
+          //                     size={25} 
+          //                     name="back"
+          //                     onPress={() => props.navigation.navigate('Blogs')}
+                          // />,
+          headerRight: (props) =>
+            <Image 
+                source={require('./logo.png')} 
+                style={{ width: 170, height: 80, }}
+            />
+          }}
+      />
+      <Stack.Screen 
+        name="ReadQuestions" 
+        component={ReadQuestions}
+        options={{
+          title:'Back',
+          // headerLeft: (props) =>  <AntDesign.Button 
+          //                     style={style.icon} 
+          //                     color="#000000" 
+          //                     size={25} 
+          //                     name="back"
+          //                     onPress={() => props.navigation.navigate('Blogs')}
+                          // />,
+          headerRight: (props) =>
+            <Image 
+                source={require('./logo.png')} 
+                style={{ width: 170, height: 80, }}
+            />
+          }}
+      />
+      <Stack.Screen 
+        name="SBlog" 
+        component={SBlog}
+        options={{
+          title:'Back',
+          // headerLeft: (props) =>  <AntDesign.Button 
+          //                     style={style.icon} 
+          //                     color="#000000" 
+          //                     size={25} 
+          //                     name="back"
+          //                     onPress={() => props.navigation.navigate('SBlog')}
+                          // />,
+          headerRight: (props) =>
+            <Image 
+                source={require('./logo.png')} 
+                style={{ width: 170, height: 80, }}
+            />
+          }}
+      />
+
+      {/* <Stack.Screen 
+        name="OnlineCourses" 
+        component={OnlineCourses}
+        options={{
+          title:'Back',
+          // headerLeft: (props) =>  <AntDesign.Button 
+          //                     style={style.icon} 
+          //                     color="#000000" 
+          //                     size={25} 
+          //                     name="back"
+          //                     onPress={() => props.navigation.navigate('OnlineCourses')}
+                          // />,
+          headerRight: (props) =>
+            <Image 
+                source={require('./logo.png')} 
+                style={{ width: 170, height: 80, }}
+            />
+          }}
+      /> */}
     </Stack.Navigator>
     </NavigationContainer>
 

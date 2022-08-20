@@ -4,14 +4,9 @@ import { useState } from "react";
 import { Button, View, ScrollView, TextInput, StyleSheet, Text, Image } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import style from "../Styles.js";
-import { isLogedIn } from "./Auth.js";
+// import { isLogedIn } from "./Auth.js";
 
 const Register = (props) => {
-    (async () =>{
-        if (await isLogedIn()){
-            props.navigation.navigate("HomeScreen")
-        }
-    })()
     const [first_name, setFirstName] = useState('');
     const [last_name, setLastName] = useState('');
     const [email, setEmail] = useState('');

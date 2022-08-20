@@ -1,6 +1,6 @@
 import React from "react";
 import HOST from "../Hosts.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, View, TextInput, StyleSheet, Text, Image } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import style from "../Styles.js";
@@ -41,17 +41,16 @@ const Login = (props) => {
             if (typeof content.token !== 'undefined') {
                 await AsyncStorage.setItem("token",content.token);
                 console.log("Token Saved")
-                setRedirect(true)
+                props.navigation.navigate('HomeScreen')
             }
             else{
                 setMsg("Invalid Username or Password")
             }
         }
     }
-    if (redirect){
-        useEffect( () => props.navigation.navigate('Home') , [] )
-        // props.navigation.navigate("Home")
-    }
+    // if (redirect){
+    //     useEffect( () => props.navigation.navigate('HomeScreen') , [] )
+    // }
 
     return(
         <View style={style.center} >

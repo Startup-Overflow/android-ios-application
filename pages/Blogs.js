@@ -1,19 +1,24 @@
 import { useState, useEffect } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View, SafeAreaView, FlatList, StyleSheet, RefreshControl } from "react-native";
 import React from 'react';
 import HOST from "../Hosts";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ListItem, Avatar } from "@react-native-material/core";
+import Fontisto from 'react-native-vector-icons/Fontisto'
+import Items from "../components/Items";
 
-const Post = (props) => {
-    return(
-        <Text>{props.title}</Text>
-    )
-}
+const Blogs = (props) => {
+    const [posts, setPosts] = useState([{"title":"No article found", "id":0, "hashtag":["Startup","Overflow"]}])
+    const [refresh, setRefresh] = useState(false)
 
-const Blogs = () => {
-    const [posts, setPosts] = useState([{"title":"No article found", "id":"0"}])
-    
+    const pullMe = () => {
+        setRefresh(true)
+
+        setTimeout(()=>{
+            setRefresh(false)
+        }, 4000)
+    }
+
     useEffect(() => {
         (async () => {
             const token = await AsyncStorage.getItem("token"); 
@@ -27,42 +32,28 @@ const Blogs = () => {
             .then(resp => resp.json())
             .then(resp => setPosts(resp))
             .catch(error => console.log(error))
-        })()},[])
-    
-    return(
-        <ScrollView>
-            <ListItem
-                leadingMode="avatar"
-                leading={
-                    <Avatar image={{ uri: "https://mui.com/static/images/avatar/1.jpg" }} />
-                }
-                title="Brunch this weekend?"
-                secondaryText="I'll be in your neighborhood doing errands this…"
-            />
-            <View style={{backgroundColor:'#ffffff', margin:5, marginTop:-1, marginBottom:10, paddingLeft:30, }}>
-                <Text style={{textAlign: 'left', position: 'absolute', fontSize:15}}>Posted 3 Min ago by Ujjwal</Text>
-                <Text style={{textAlign: 'right', fontSize:15}}>13 Comments</Text>
-            </View>
-            
+        })()
+     },[])        
 
-            <ListItem
-                leadingMode="avatar"
-                leading={
-                    <Avatar image={{ uri: "https://mui.com/static/images/avatar/1.jpg" }} />
-                }
-                title="Brunch this weekend?"
-                secondaryText="I'll be in your neighborhood doing errands this…"
-            />
-            <View style={{backgroundColor:'#ffffff', margin:5, marginTop:-1, marginBottom:10, paddingLeft:30, }}>
-                <Text style={{textAlign: 'left', position: 'absolute', fontSize:15}}>Posted 3 Min ago by Ujjwal</Text>
-                <Text style={{textAlign: 'right', fontSize:15}}>13 Comments</Text>
-            </View>
-
-            {posts.map(post => <Post key={post.id} id={post.id} title={post.title}/> )}
+     return(
+        <ScrollView refreshControl={<RefreshControl refreshing={refresh} onRefresh={()=>pullMe()}/>}>
+            { 
+            posts.length==0? <Text>No data found</Text>:
+            posts[0].id==0? <Text>Loading...</Text>:
+            posts.map((e)=> 
+                <Items
+                    key={e.id}
+                    id={e.id} 
+                    title={e.title}  
+                    hashtag={e.hashtag}
+                    username={e.username}
+                    comment={e.comment}
+                    like={e.like}
+                    unlike={e.unlike}
+                    navigation={props.navigation}
+                />)}
         </ScrollView>
     );
 }
-
-
 
 export default Blogs;

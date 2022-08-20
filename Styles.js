@@ -53,7 +53,7 @@ const style = StyleSheet.create({
     },
     icon:{
         backgroundColor:'white',
-        padding:5,
+        paddingLeft:18,
     },
     resource:{
         padding: 32,
