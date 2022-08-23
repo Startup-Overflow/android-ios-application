@@ -3,6 +3,7 @@ import { Text, View, Button } from "react-native";
 import { ListItem, Avatar, Text as MaterialText } from "@react-native-material/core";
 import HOST from "../Hosts";
 import { ScrollView } from "react-native-gesture-handler";
+import ProfileLists from "../components/ProfileLists";
 
 function Investor(props){
     return(

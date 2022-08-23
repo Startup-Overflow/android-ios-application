@@ -34,7 +34,7 @@ const Discussion = (props) => {
             .catch(error => console.log(error))
         })()},[])
 
-    posts.map((e)=>console.log(e.id))
+    posts.map((e)=>console.log(e))
 
     return (
         <ScrollView refreshControl={<RefreshControl refreshing={refresh} onRefresh={()=>pullMe()}/>}>

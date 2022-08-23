@@ -29,7 +29,7 @@ const Comment = (props) => {
 
 const Article = (props) => {
     const [posts, setPosts] = useState({'title':'Please wait..', 'desc':'Page is loading...'})
-    const [allcomments, setALlComments] = useState([{}])
+    const [answers, setAnswers] = useState([{}])
     const { width } = useWindowDimensions();
     const [refresh, setRefresh] = useState(false)
 
@@ -40,32 +40,6 @@ const Article = (props) => {
             setRefresh(false)
         }, 4000)
     }
-
-    // const like = async (e) =>{
-    //     const token = await AsyncStorage.getItem("token");  
-
-    //     const response = await fetch(`${HOST}/posts/like/${id}/`,{
-    //         method:"POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             "Authorization": `Token ${token}`
-    //         },
-    //     })
-    // } 
-
-    // const unlike = async (e) =>{
-    //     const token = await AsyncStorage.getItem("token");  
-
-    //     const response = await fetch(`${HOST}/unlike/${id}/`,{
-    //         method:"POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             "Authorization": `Token ${token}`
-    //         },
-    //     })
-    // } 
-
-    console.log(url)
 
     useEffect(() => {
         fetch(`${url}`,{
@@ -78,6 +52,23 @@ const Article = (props) => {
       .then(resp => setPosts(resp))
       .catch(error => console.log(error))
       },[])
+
+      console.log(posts.id)
+
+    useEffect(()=>{
+        fetch(`${HOST}/questions/answer/${posts.id}/`, {
+            method:"GET",
+            headers: {
+              "Content-Type": "application/json",
+            }  
+        })
+        .then(resp => resp.json())
+        .then(resp => setAnswers(resp))
+        .catch(error => console.log(error))
+        },[])
+
+        console.log(answers)
+  
 
     //   useEffect(() => {
     //     fetch(`${HOST}/posts/commentview/${id}`,{
@@ -93,7 +84,6 @@ const Article = (props) => {
 
       
       const html = `${posts["desc"]}`
-      console.log(posts)
 
     return(
         // <Text>
@@ -135,7 +125,7 @@ const Article = (props) => {
             /> */}
             {/* </View> */}
             <MaterialText variant="h5" style={{margin: 20}}>Answers</MaterialText>
-            {allcomments.map((e)=> <Comment id={e.id} key={e.key} comment={e.comment} username={e.username}/>)}
+            {/* {allcomments.map((e)=> <Comment id={e.id} key={e.key} comment={e.comment} username={e.username}/>)} */}
         </ScrollView>
     )
 }

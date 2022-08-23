@@ -12,10 +12,10 @@ const Questions = (props) => {
         <ListItem
             title={props.title}
             secondaryText={`
-Posted 3 Min ago by ${props.username}
+Posted by ${props.username}
 ${props.hashtag.map((e)=>"\n#"+e)}
             `}
- 
+
             onPress={() => props.navigation.navigate({
                 name:'ReadQuestions',
                 params: {post: 'questions/'+props.id}
@@ -24,7 +24,7 @@ ${props.hashtag.map((e)=>"\n#"+e)}
         <View style={{backgroundColor:'#ffffff', margin:5, marginTop:-1, marginBottom:10, paddingLeft:30, }}>
             {/* <Text style={{textAlign: 'left', position: 'absolute', fontSize:15}}></Text> */}
             <Text style={{textAlign: 'right', fontSize:15}}>{props.answer} Answers</Text>
-        <View style={{flexDirection: "row", position: 'absolute'}}>
+        {/* <View style={{flexDirection: "row", position: 'absolute'}}>
         <Text>0</Text>
             <Fontisto.Button 
                 style={style.like} 
@@ -40,7 +40,7 @@ ${props.hashtag.map((e)=>"\n#"+e)}
                 name="dislike"
             />
             </View>
-            {/* {console.log(item.hashtag)} */}
+            {console.log(item.hashtag)} */}
         </View>
     </View>
     )

@@ -3,7 +3,7 @@ import { ScrollView, TextInput } from "react-native-gesture-handler";
 import style from "../Styles";
 import Header from "../components/Header";
 import {Picker} from "@react-native-picker/picker";
-import { KeyboardAvoidingView, Text, useWindowDimensions } from "react-native";
+import { KeyboardAvoidingView, Text, useWindowDimensions, handleHeightChange } from "react-native";
 import {actions, RichEditor, RichToolbar} from "react-native-pell-rich-editor";
 
 export default function Add() {
@@ -15,23 +15,26 @@ export default function Add() {
         <ScrollView>
             <Header>Add new Post</Header>
             <Picker
-                style={[style.input]}
+                style={[style.input,{width: width, marginLeft: 0, borderWidth: 0}]}
                 onValueChange={(itemValue) => setSelectedValue(itemValue)}
             >
                 <Picker.Item label="Post something" value="post" />
                 <Picker.Item label="Ask something" value="ask" />
             </Picker>
+            <Text>{"\n"}</Text>
 
-            <TextInput style={style.input} placeholder="Title"></TextInput>
-
+            <TextInput style={[style.input, {marginLeft: 0, width: width, borderWidth: 0}]} placeholder="Title"></TextInput>
+            <Text>{"\n"}</Text>
             {/* <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}	style={{ flex: 1 }}> */}
-                    <Text>{"\n"}      Description:</Text>
                     <RichEditor
                         ref={richText}
-                        style={{width: width-40, marginLeft: 10}}
+                        style={{width: width, marginLeft: 0}}
+                        placeholder={"Description"}
                         onChange={ descriptionText => {
                             console.log("descriptionText:", descriptionText);
                         }}
+                        onHeightChange={handleHeightChange}
+
                     />
                 {/* </KeyboardAvoidingView> */}
             <RichToolbar
