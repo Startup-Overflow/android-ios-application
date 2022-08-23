@@ -40,7 +40,7 @@ const Article = (props) => {
             setRefresh(false)
         }, 4000)
     }
-
+    console.log(url)
     useEffect(() => {
         fetch(`${url}`,{
           method:"GET",
@@ -53,10 +53,10 @@ const Article = (props) => {
       .catch(error => console.log(error))
       },[])
 
-      console.log(posts.id)
+      console.log(`${HOST}/questions/answer/${posts.id}/`)
 
     useEffect(()=>{
-        fetch(`${HOST}/questions/answer/${posts.id}/`, {
+        fetch(`${HOST}/questions/answer/${posts.id}`, {
             method:"GET",
             headers: {
               "Content-Type": "application/json",
@@ -93,9 +93,10 @@ const Article = (props) => {
             <MaterialText variant="h5" style={{paddingBottom:20}}>{posts.title}</MaterialText>
             {
                 type=='resources'?'':
-                    <Text>Posted By: {posts.username+"\n"}
-                    on: {posts.post_date+"\n"}
-                    at: {posts.post_time+"\n"}</Text>
+                    <Text>Asked By: {posts.username+"\n"}
+                    {/* on: {posts.post_date+"\n"}
+                    at: {posts.post_time+"\n"} */}
+                    </Text>
             }
 
             <RenderHTML 
@@ -125,7 +126,7 @@ const Article = (props) => {
             /> */}
             {/* </View> */}
             <MaterialText variant="h5" style={{margin: 20}}>Answers</MaterialText>
-            {/* {allcomments.map((e)=> <Comment id={e.id} key={e.key} comment={e.comment} username={e.username}/>)} */}
+            {answers.map((e)=> <Comment id={e.id} key={e.id} comment={e.desc} username={e.username}/>)}
         </ScrollView>
     )
 }
