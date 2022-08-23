@@ -53,7 +53,7 @@ const Article = (props) => {
       .catch(error => console.log(error))
       },[])
 
-      console.log(`${HOST}/questions/answer/${posts.id}/`)
+      console.log(`${HOST}/questions/answer/${posts.id}`)
 
     useEffect(()=>{
         fetch(`${HOST}/questions/answer/${posts.id}`, {
