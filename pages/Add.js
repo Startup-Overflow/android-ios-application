@@ -8,6 +8,7 @@ import {actions, RichEditor, RichToolbar} from "react-native-pell-rich-editor";
 
 export default function Add() {
     const [selectedValue, setSelectedValue] = useState("");
+    const [desc, setDesc] = useState("");
 	const richText = React.useRef();
     const { width } = useWindowDimensions();
 
@@ -16,6 +17,7 @@ export default function Add() {
             <Header>Add new Post</Header>
             <Picker
                 style={[style.input,{width: width, marginLeft: 0, borderWidth: 0}]}
+                selectedValue={selectedValue}
                 onValueChange={(itemValue) => setSelectedValue(itemValue)}
             >
                 <Picker.Item label="Post something" value="post" />

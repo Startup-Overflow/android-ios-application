@@ -116,7 +116,7 @@ const Footer = (props) => {
         <Tab.Screen name="Add" 
             component={Add} 
             options={{
-                title: 'ADD',
+                title: 'New',
                 tabBarIcon: () => <MaterialIcons.Button 
                                         style={style.icon} 
                                         color="#000000" 
@@ -192,7 +192,7 @@ const Home = (props) => {
                         onPress={() => props.navigation.navigate('Home')}
                     />
                     <ListItem
-                        title="Profile"
+                        title="Edit Profile"
                         leading={<Ionicons name="person" size={18} />}
                         trailing={props => <MaterialCommunityIcons name="chevron-right" {...props} />}
                         onPress={() => props.navigation.navigate('Profile')}
@@ -288,7 +288,7 @@ const Home = (props) => {
         >
             <Drawer.Screen name="Home" options={options} component={Footer}/>
             <Drawer.Screen name="Profile" options={options} component={Profile}/>
-            <Drawer.Screen name="Add" options={options} component={Add}/>
+            <Drawer.Screen name="New" options={options} component={Add}/>
             <Drawer.Screen name="Mentors" options={options} component={Mentors}/>
             <Drawer.Screen name="Partners" options={options} component={Partners}/>
             <Drawer.Screen name="Investors" options={options} component={Investors}/>

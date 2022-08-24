@@ -5,35 +5,6 @@ import HOST from "../Hosts";
 import { ScrollView } from "react-native-gesture-handler";
 import ProfileLists from "../components/ProfileLists";
 
-function Investor(props){
-    return(
-        <View style={{marginBottom:10, paddingBottom:10}} >
-        <ListItem
-            leadingMode="avatar"
-            leading={
-                <Avatar image={{ uri: HOST+props.attachment }} size={50} />
-            }
-            title= "Ujjwal Kar"
-            secondaryText={
-                <View>
-                    <Text>Hello World</Text>
-                    <View>
-                    <Button 
-                        style={{textAlign: 'right'}} 
-                        title="Message"
-                        onPress={() => props.navigation.navigate({
-                            name:'Read',
-                            params: {post: 'posts/views/'+props.id, ids: props.id, type: "posts"}
-                        })}
-                    />
-                    </View>
-                </View>                
-            }
-        />
-    </View>
-    )
-}
-
 const Investors = (props) => {
     return (
         <ScrollView>
@@ -46,9 +17,14 @@ const Investors = (props) => {
                     fontWeight: '600',
                     padding: 5,
                 }}>
-                    Investors
+                    Pitch your idea or get feedback and financial support from investors...
             </MaterialText>
-            <Investor/>
+            <ProfileLists name="Brajesh Maheshwari" desc="Co-Founder Director of Allen Career Institute"  img="https://startupoverflowweb.netlify.app/static/media/Brajesh_Maheshwari.bb5b0fb8832b1c4849eb.jpg" btnTitle="Connect with Investors" id="1"/>
+            <ProfileLists name="Vinay Kumar Reddy Nuvvuru" desc="Founder of Indian Academy of Competitive Exams"  img="https://startupoverflowweb.netlify.app/static/media/Vinay-kumar-reddy.4e0e3f5d0d3f5e461005.jpg" btnTitle="Connect with Investors" id="2"/>
+            <ProfileLists name="Dr P Prasant" desc="Speaker, Educator in teaching Cyber Security"  img="https://startupoverflowweb.netlify.app/static/media/Dr%20P%20Prasant.271d836b02162ad51630.jpg" btnTitle="Connect with Investors" id="3"/>
+            <ProfileLists name="Dr Chandan Agarwal" desc="Chairperson of G.D. Goenka School"  img="https://startupoverflowweb.netlify.app/static/media/Chandan_Aggarwal.2b628be7ea20068eab61.jpg" btnTitle="Connect with Investors" id="4"/>
+            <ProfileLists name="Dhana Durga" desc="Founder and Principal, SVES"  img="https://startupoverflowweb.netlify.app/static/media/Dhana-Durga.9c8d4c6089d896d8c91b.jpeg" btnTitle="Connect with Investors" id="5"/>
+            <ProfileLists name="Karan Shah" desc="Founder & CEO of IIDE"  img="https://startupoverflowweb.netlify.app/static/media/Karan%20Shah.5abc9dff7e92607b7571.jpg" btnTitle="Connect with Investors" id="6"/>
         </ScrollView>
     )
 }    
