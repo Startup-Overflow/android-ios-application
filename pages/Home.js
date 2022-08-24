@@ -176,7 +176,7 @@ const Home = (props) => {
         drawerContent={props =>
              <ScrollView>
                 <View style={{justifyContent: 'center', alignItems: 'center', margin:10}} >
-                    <Avatar image={{ uri: "https://mui.com/static/images/avatar/1.jpg" }} size={150} />
+                    <Avatar image={{ uri: "https://avatars.githubusercontent.com/u/55041104?v=4" }} size={150} />
                     <MaterialText variant="h5" style={{fontWeight: 'bold'}}>Ujjwal Kar</MaterialText>
                 </View>
                 <View
