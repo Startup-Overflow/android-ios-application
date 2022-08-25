@@ -17,6 +17,8 @@ import OnlineCourses from './pages/OnlineCourses.js';
 import ReadQuestions from './pages/ReadQuestions.js';
 import Loading from './pages/Loading.js';
 import CheckUser from './pages/CheckUser.js';
+import Resources from "./pages/Resources";
+import Woman from './pages/Woman.js';
 
 const Stack = createStackNavigator();
 
@@ -34,16 +36,6 @@ const App = () => {
           cardStyle: { backgroundColor: '#d9d9d9' },
         }}  
       />
-
-      {/* <Stack.Screen 
-        name="CheckUser" 
-        component={CheckUser}
-        options={{
-          title: 'CheckUser',
-          headerShown: false,
-          cardStyle: { backgroundColor: '#d9d9d9' },
-        }}  
-      /> */}
 
       <Stack.Screen 
         name="Register" 
@@ -79,6 +71,23 @@ const App = () => {
           cardStyle: { backgroundColor: '#d9d9d9' },
         }}  
       />
+
+      <Stack.Screen 
+        name="Woman" 
+        component={Woman}
+        options={{
+          title:'',
+        //   // headerShown: false,
+        //   cardStyle: { backgroundColor: '#d9d9d9' },
+        headerRight: (props) =>
+        <Image 
+            source={require('./logo.png')} 
+            style={{ width: 170, height: 80, }}
+        />
+      }}
+         
+      />
+
       <Stack.Screen 
         name="HomeScreen" 
         component={Home}
@@ -172,9 +181,9 @@ const App = () => {
           }}
       />
 
-      {/* <Stack.Screen 
-        name="OnlineCourses" 
-        component={OnlineCourses}
+      <Stack.Screen 
+        name="Resources" 
+        component={Resources}
         options={{
           title:'Back',
           // headerLeft: (props) =>  <AntDesign.Button 
@@ -190,7 +199,7 @@ const App = () => {
                 style={{ width: 170, height: 80, }}
             />
           }}
-      /> */}
+      />
     </Stack.Navigator>
     </NavigationContainer>
 

@@ -30,7 +30,7 @@ const Learn = (props) => {
           renderItem={({ item }) => (
             <View>
               {item.id==0? <Text>Loading...</Text>:
-                <View style={[styles.itemContainer, { backgroundColor: 'black' }]} >
+                <View style={[styles.itemContainer, { backgroundColor: 'maroon' }]} >
                   <Text style={styles.itemName} onPress={() => props.navigation.navigate({
                     name:'SBlog',
                     params: {post: "categories/"+item.id}

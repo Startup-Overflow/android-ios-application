@@ -43,15 +43,15 @@ const Profile = () => {
                 selectedValue={type}
                 onValueChange={(itemValue) => setType(itemValue)}
             >
-                <Picker.Item label="Mentor" value="Mentor" />
                 <Picker.Item label="Entrepreneur" value="Entrepreneur" />
+                <Picker.Item label="Mentor" value="Mentor" />
                 <Picker.Item label="Partner" value="Partner" />
                 <Picker.Item label="Investor" value="Investor" />
                 <Picker.Item label="Incubator" value="Incubator" />
                 <Picker.Item label="Incubator" value="Incubator" />
             </Picker>
             <Button 
-                title="Submit"
+                title="Change Profile Status"
                 color="#f29520"
                 style={style.btn}
                 onPress={()=> submitprofile()}

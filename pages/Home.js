@@ -14,7 +14,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Octicons from 'react-native-vector-icons/Octicons';
 import AddPost from "./AddPost";
-import Resources from "./Resources";
+import MyResources from "./MyResources";
 import Discussion from "./Discussion";
 import Account from "./Account";
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
@@ -50,14 +50,24 @@ const Footer = (props) => {
     })()
 
     return(
-        <Tab.Navigator>
+        <Tab.Navigator
+        tabBarOptions={{
+           activeTintColor: '#000',
+           inactiveTintColor: 'grey',
+           activeBackgroundColor: '#f0f9ff',
+           inactiveBackgroundColor: '#f0f9ff',
+               style: {
+                     paddingBottom: 3
+               }
+        }}
+        >
         {/* <Tab.Screen name="CheckUser" 
             component={CheckUser} 
             options={{
                 title: 'CheckUser',
                 tabBarIcon: () => <FontAwesome5.Button 
-                                        style={style.icon} 
-                                        color="#000000" 
+                                        style={{backgroundColor:'#f0f9ff'}} 
+                                        color="#330000" 
                                         size={25} 
                                         name="box-open"
                                         onPress={() => props.navigation.navigate('CheckUser')}
@@ -66,19 +76,20 @@ const Footer = (props) => {
                 tabBarStyle: { height: bottomHeight },
             }}
         /> */}
-        <Tab.Screen name="Resources" 
-            component={Resources} 
+        <Tab.Screen name="MyResources" 
+            component={MyResources} 
             options={{
                 title: 'Resources',
                 tabBarIcon: () => <FontAwesome5.Button 
-                                        style={style.icon} 
-                                        color="#000000" 
+                                        style={{backgroundColor:'#f0f9ff'}} 
+                                        color="#330000" 
                                         size={25} 
                                         name="box-open"
-                                        onPress={() => props.navigation.navigate('Resources')}
+                                        onPress={() => props.navigation.navigate('MyResources')}
                                     />,
                 headerShown: false,
                 tabBarStyle: { height: bottomHeight },
+                
             }}
         />
 
@@ -87,8 +98,8 @@ const Footer = (props) => {
             options={{
                 title: 'Learn',
                 tabBarIcon: () => <FontAwesome.Button 
-                                        style={style.icon} 
-                                        color="#000000" 
+                                        style={{backgroundColor:'#f0f9ff'}} 
+                                        color="#330000" 
                                         size={27} 
                                         name="graduation-cap"
                                         onPress={() => props.navigation.navigate({name:'Learn', params: 'categories'})}
@@ -103,8 +114,8 @@ const Footer = (props) => {
             options={{
                 title: 'Ideas',
                 tabBarIcon: () => <MaterialCommunityIcons.Button 
-                                        style={style.icon} 
-                                        color="#000000" 
+                                        style={{backgroundColor:'#f0f9ff'}} 
+                                        color="#330000" 
                                         size={30} 
                                         name="brain"
                                         onPress={() => props.navigation.navigate('BusinessIdeas')}
@@ -118,8 +129,8 @@ const Footer = (props) => {
             options={{
                 title: 'New',
                 tabBarIcon: () => <MaterialIcons.Button 
-                                        style={style.icon} 
-                                        color="#000000" 
+                                        style={{backgroundColor:'#f0f9ff'}} 
+                                        color="#330000" 
                                         size={30} 
                                         name="add-circle-outline"
                                         onPress={() => props.navigation.navigate('Add')}
@@ -137,8 +148,8 @@ const Footer = (props) => {
                     showIcon: true 
                     },
                 tabBarIcon: () => <FontAwesome.Button 
-                                        style={style.icon} 
-                                        color="#000000" 
+                                        style={{backgroundColor:'#f0f9ff'}} 
+                                        color="#330000" 
                                         size={25} 
                                         name="feed"
                                         onPress={() => props.navigation.navigate({
@@ -155,8 +166,8 @@ const Footer = (props) => {
             options={{
                 title: 'Discussion',
                 tabBarIcon: () => <MaterialIcons.Button 
-                                        style={style.icon} 
-                                        color="#000000" 
+                                        style={{backgroundColor:'#f0f9ff'}} 
+                                        color="#330000" 
                                         size={30} 
                                         name="question-answer"
                                         onPress={() => props.navigation.navigate('Discussion')}
@@ -174,15 +185,16 @@ const Home = (props) => {
         <Drawer.Navigator 
         initialRouteName="Home" 
         drawerContent={props =>
-             <ScrollView>
+             <ScrollView style={{backgroundColor:'#404040'}}>
                 <View style={{justifyContent: 'center', alignItems: 'center', margin:10}} >
                     <Avatar image={{ uri: "https://avatars.githubusercontent.com/u/55041104?v=4" }} size={150} />
-                    <MaterialText variant="h5" style={{fontWeight: 'bold'}}>Ujjwal Kar</MaterialText>
+                    <MaterialText variant="h5" style={{fontWeight: 'bold', color:'white'}}>Ujjwal Kar</MaterialText>
                 </View>
                 <View
                     style={{
-                        borderBottomColor: 'black',
+                        borderBottomColor: '#330000',
                         borderBottomWidth: StyleSheet.hairlineWidth,
+                        backgroundColor:'#121212'
                     }}
                 />
                     <ListItem
@@ -192,7 +204,7 @@ const Home = (props) => {
                         onPress={() => props.navigation.navigate('Home')}
                     />
                     <ListItem
-                        title="Edit Profile"
+                        title="Profile Status"
                         leading={<Ionicons name="person" size={18} />}
                         trailing={props => <MaterialCommunityIcons name="chevron-right" {...props} />}
                         onPress={() => props.navigation.navigate('Profile')}
@@ -288,6 +300,7 @@ const Home = (props) => {
         >
             <Drawer.Screen name="Home" options={options} component={Footer}/>
             <Drawer.Screen name="Profile" options={options} component={Profile}/>
+            {/* <Drawer.Screen name="Resources" options={options} component={Resources}/> */}
             <Drawer.Screen name="New" options={options} component={Add}/>
             <Drawer.Screen name="Mentors" options={options} component={Mentors}/>
             <Drawer.Screen name="Partners" options={options} component={Partners}/>
@@ -309,11 +322,13 @@ const options = {
     />
     ,
     headerRight: () => <HeaderIcons/>,
+    
+
 }
 
 // const home = options["drawerIcon"] = () =>  <MaterialIcons.Button 
-// style={style.icon} 
-// color="#000000" 
+// style={{backgroundColor:'#f0f9ff'}} 
+// color="#330000" 
 // size={30} 
 // name="question-answer"
 // // onPress={() => props.navigation.navigate('Discussion')}

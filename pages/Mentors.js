@@ -17,7 +17,7 @@ const Mentors = (props) => {
                     fontWeight: '600',
                     padding: 5,
                 }}>
-                    Seek guidance from experienced mentors...
+                    Discuss your idea with experienced mentors...
             </MaterialText>
             <ProfileLists name="Brajesh Maheshwari" desc="Co-Founder Director of Allen Career Institute"  img="https://startupoverflowweb.netlify.app/static/media/Brajesh_Maheshwari.bb5b0fb8832b1c4849eb.jpg" btnTitle="Book for Appointment" id="1"/>
             <ProfileLists name="Vinay Kumar Reddy Nuvvuru" desc="Founder of Indian Academy of Competitive Exams"  img="https://startupoverflowweb.netlify.app/static/media/Vinay-kumar-reddy.4e0e3f5d0d3f5e461005.jpg" btnTitle="Book for Appointment" id="2"/>
