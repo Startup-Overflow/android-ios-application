@@ -13,8 +13,8 @@ const Questions = (props) => {
             title={props.title}
             secondaryText={`
 Posted by ${props.username}
-${props.hashtag.map((e)=>"\n#"+e)}
             `}
+            // ${props.hashtag.map((e)=>"\n#"+e)}
 
             onPress={() => props.navigation.navigate({
                 name:'ReadQuestions',

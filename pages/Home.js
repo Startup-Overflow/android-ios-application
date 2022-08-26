@@ -204,12 +204,6 @@ const Home = (props) => {
                         onPress={() => props.navigation.navigate('Home')}
                     />
                     <ListItem
-                        title="Profile Status"
-                        leading={<Ionicons name="person" size={18} />}
-                        trailing={props => <MaterialCommunityIcons name="chevron-right" {...props} />}
-                        onPress={() => props.navigation.navigate('Profile')}
-                    />
-                    <ListItem
                         title="Mentors"
                         leading={<FontAwesome5 name="chalkboard-teacher" size={18} />}
                         trailing={props => <MaterialCommunityIcons name="chevron-right" {...props} />}
@@ -217,6 +211,12 @@ const Home = (props) => {
                             name:'Mentors',
                             params: {post:"hello"}
                         })}
+                    />
+                    <ListItem
+                        title="Profile Status"
+                        leading={<Ionicons name="person" size={18} />}
+                        trailing={props => <MaterialCommunityIcons name="chevron-right" {...props} />}
+                        onPress={() => props.navigation.navigate('Profile')}
                     />
                     <ListItem
                         title="Ask for Partnersip"
@@ -299,7 +299,7 @@ const Home = (props) => {
              </ScrollView>}
         >
             <Drawer.Screen name="Home" options={options} component={Footer}/>
-            <Drawer.Screen name="Profile" options={options} component={Profile}/>
+            {/* <Drawer.Screen name="Profile" options={options} component={Profile}/> */}
             {/* <Drawer.Screen name="Resources" options={options} component={Resources}/> */}
             <Drawer.Screen name="New" options={options} component={Add}/>
             <Drawer.Screen name="Mentors" options={options} component={Mentors}/>

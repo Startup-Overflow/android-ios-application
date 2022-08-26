@@ -4,6 +4,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import { SectionGrid } from 'react-native-super-grid';
 import style from '../Styles';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { ListItem } from '@react-native-material/core';
 
 const Resources = ({navigation}) => {  
   const items = [
@@ -11,6 +12,8 @@ const Resources = ({navigation}) => {
     { name: 'How to Start a Business', code: 'red', page:'Resources', id:2, api:'resources' },
     { name: 'Success and Failure Stories of a Startup', code: 'orange', page:'SBlog', id:14, api:'categories' },
     { name: 'Woman Entrepreniurship', code: 'gold', page:'Woman', api:'hati', id:4 },
+    // { name: 'Register for Mentorship', code: 'gold', page:'Profile', api:'hati', id:12 },
+    // { name: 'More...', code: 'gold', page:'Profile', api:'hati', id:9 },
   ];
 
   return (
@@ -18,7 +21,7 @@ const Resources = ({navigation}) => {
       itemDimension={125}
       sections={[
         {
-          data: items.slice(0, 4),
+          data: items,
         },
     ]}
       style={styles.gridView}
@@ -38,7 +41,7 @@ const Resources = ({navigation}) => {
         </View>
       )}
       renderSectionHeader={({ section }) => (
-        <View style={{marginBottom:40, marginTop:80}}>
+        <View style={{marginBottom:50, marginTop:50}}>
           {/* <TextInput style={styles.input} placeholder="   Search..."></TextInput> */}
         </View>
       )}

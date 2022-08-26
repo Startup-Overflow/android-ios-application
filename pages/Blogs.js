@@ -8,7 +8,7 @@ import Fontisto from 'react-native-vector-icons/Fontisto'
 import Items from "../components/Items";
 
 const Blogs = (props) => {
-    const [posts, setPosts] = useState([{"title":"No article found", "id":0, "hashtag":["Startup","Overflow"]}])
+    const [posts, setPosts] = useState([{"title":"No article found", "id":0, }])
     const [refresh, setRefresh] = useState(false)
 
     const pullMe = () => {
@@ -22,18 +22,19 @@ const Blogs = (props) => {
     useEffect(() => {
         (async () => {
             const token = await AsyncStorage.getItem("token"); 
-            fetch(`${HOST}/posts`,{
+            fetch(`${HOST}/posts/`,{
                 method:"GET",
                 headers: {
                   "Content-Type": "application/json",
-                  "Authorization": `Token ${token}`
                 }
             })
             .then(resp => resp.json())
             .then(resp => setPosts(resp))
             .catch(error => console.log(error))
         })()
-     },[])        
+     },[])      
+     
+     console.log(posts)
 
      return(
         <ScrollView refreshControl={<RefreshControl refreshing={refresh} onRefresh={()=>pullMe()}/>}>
@@ -45,13 +46,13 @@ const Blogs = (props) => {
                     key={e.id}
                     id={e.id} 
                     title={e.title}  
-                    hashtag={e.hashtag}
                     username={e.username}
                     comment={e.comment}
                     like={e.like}
                     unlike={e.unlike}
                     navigation={props.navigation}
-                />)}
+                />)
+        }
         </ScrollView>
     );
 }

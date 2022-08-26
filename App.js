@@ -19,6 +19,8 @@ import Loading from './pages/Loading.js';
 import CheckUser from './pages/CheckUser.js';
 import Resources from "./pages/Resources";
 import Woman from './pages/Woman.js';
+import Profile from './pages/Profile.js';
+import RegisterAsMentor from './pages/RegisterAsMentor.js';
 
 const Stack = createStackNavigator();
 
@@ -71,6 +73,25 @@ const App = () => {
           cardStyle: { backgroundColor: '#d9d9d9' },
         }}  
       />
+
+      <Stack.Screen 
+        name="Profile" 
+        component={Profile}
+        // options={{
+          // headerShown: false,
+          // cardStyle: { backgroundColor: '#d9d9d9' },
+        // }}  
+      />
+
+      <Stack.Screen 
+        name="RegisterAsMentor" 
+        component={RegisterAsMentor}
+        // options={{
+          // headerShown: false,
+          // cardStyle: { backgroundColor: '#d9d9d9' },
+        // }}  
+      />
+
 
       <Stack.Screen 
         name="Woman" 

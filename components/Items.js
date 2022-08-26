@@ -16,7 +16,6 @@ const Items = (props) => (
             title={props.title}
             secondaryText={`
             Posted by ${props.username}
-${props.hashtag.map((e)=>"\n\t\t#"+e)}
             `}
 
             onPress={() => props.navigation.navigate({

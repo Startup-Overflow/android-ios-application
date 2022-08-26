@@ -53,7 +53,8 @@ const Article = (props) => {
       .catch(error => console.log(error))
       },[])
 
-      console.log(`${HOST}/questions/answer/${posts.id}`)
+      console.log(posts)
+
 
     useEffect(()=>{
         fetch(`${HOST}/questions/answer/${posts.id}`, {
@@ -65,7 +66,7 @@ const Article = (props) => {
         .then(resp => resp.json())
         .then(resp => setAnswers(resp))
         .catch(error => console.log(error))
-        },[])
+        },[posts.id])
 
         console.log(answers)
   
@@ -155,7 +156,7 @@ const ReadQuestions = (props) => {
         })
 
         console.log("Got Response...")
-        const content = await response.json()
+        const content = await response.text()
         console.log(content)
     }
 
