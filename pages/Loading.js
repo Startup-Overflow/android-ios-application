@@ -16,7 +16,7 @@ const Loading = (props) => {
     return(
         <Image 
         source={require('../logo.png')} 
-        style={{ width: 440, height: 660, }}
+        style={{ width: 350, height: 520, }}
     />    
     )
 }

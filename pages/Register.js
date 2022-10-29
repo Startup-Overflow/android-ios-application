@@ -13,11 +13,11 @@ const Register = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirm_password, setConfirmPassword] = useState('');
-    const [redirect, setRedirect] = useState(false)
+    // const [redirect, setRedirect] = useState(false)
     const [msg, setMsg] = useState('')
     
     const submit = async (e) => {
-        console.log(await isLogedIn())
+        // console.log(await isLogedIn())
 
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         console.log(first_name, last_name, username, password, confirm_password)
@@ -31,9 +31,9 @@ const Register = (props) => {
         else if (email==''){
             setMsg("Email Id is Required")
         }
-        else if (re.test(email)){
-            setMsg("Email Id is not Valid")
-        }
+        // else if (re.test(email)){
+        //     setMsg("Email Id is not Valid")
+        // }
         else if (username==''){
             setMsg("Username is Required")
         }
@@ -44,7 +44,7 @@ const Register = (props) => {
             setMsg("Password did'nt matched")
         }
         else{
-            console.log("Sending Request...")            
+            console.log("Sending Request...")  
             const response = await fetch(`${HOST}/users/register/`,{
                 method:"POST",
                 headers: {"Content-Type": "application/json"},
@@ -67,16 +67,18 @@ const Register = (props) => {
                 await AsyncStorage.setItem("token",content.token);
                 console.log("Token Saved")
                 setRedirect(true)
+                props.navigation.navigate("HomeScreen")
             }
             else{
                 setMsg(token.Message)
+                props.navigation.navigate("HomeScreen")
             }
         }
     }
 
-    if (redirect){
-        props.navigation.navigate("Home")
-    }
+    // if (redirect){
+    //     props.navigation.navigate("HomeScreen")
+    // }
 
 
     return(
@@ -87,16 +89,16 @@ const Register = (props) => {
             />
             <Text style={style.h1}>Please Sign Up</Text>
             <View style={style.row}>
-                <TextInput style={style.col} placeholder="First Name" name="first_name" id="first_name" onChange={e => setFirstName(e) } required />
-                <TextInput style={style.col} placeholder="Last Name" name="last_name" onChange={e => setLastName(e) } required/>
+                <TextInput style={style.col} placeholder="First Name" name="first_name" id="first_name" onChangeText={e => setFirstName(e) } />
+                <TextInput style={style.col} placeholder="Last Name" name="last_name" onChangeText={e => setLastName(e) } required/>
             </View>
             <View>
-                <TextInput style={style.input} placeholder="Email" name="email" onChange={e => setEmail(e) } required/>
-                <TextInput style={style.input} placeholder="Username" name="username" onChange={e => setUsername(e) } required/>
+                <TextInput style={style.input} placeholder="Email" name="email" onChangeText={e => setEmail(e) } required/>
+                <TextInput style={style.input} placeholder="Username" name="username" onChangeText={e => setUsername(e) } required/>
             </View>
             <View style={style.row}>
-                <TextInput style={style.col} secureTextEntry={true} placeholder="Password" name="password" onChange={e => setPassword(e) } required/>
-                <TextInput style={style.col} secureTextEntry={true} placeholder="Confirm Password" name="confirm_password" onChange={e => setConfirmPassword(e) } required/>
+                <TextInput style={style.col} secureTextEntry={true} placeholder="Password" name="password" onChangeText={e => setPassword(e) } required/>
+                <TextInput style={style.col} secureTextEntry={true} placeholder="Confirm Password" name="confirm_password" onChangeText={e => setConfirmPassword(e) } required/>
             </View>
             <Text style={{color:'red', padding:10}}>{msg}</Text>
             {/* <PasswordInputText/> */}
