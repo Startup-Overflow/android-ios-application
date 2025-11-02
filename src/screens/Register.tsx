@@ -11,13 +11,8 @@ import { TextInput, Button, Text, HelperText } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
+import { RootStackParamList } from '../navigation/AuthNavigator';
 // import HOST from '../Hosts';
-
-type RootStackParamList = {
-  Register: undefined;
-  Login: undefined;
-  HomeScreen: undefined;
-};
 
 type RegisterScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Register'>;
 type RegisterScreenRouteProp = RouteProp<RootStackParamList, 'Register'>;
@@ -147,7 +142,7 @@ const Register: React.FC<Props> = ({ navigation }) => {
 
         <Button
           mode="text"
-          onPress={() => navigation.navigate('Login')}
+          onPress={() => navigation.goBack()}
           style={styles.link}
           textColor="#02a34e"
         >

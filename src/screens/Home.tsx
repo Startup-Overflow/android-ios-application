@@ -1,29 +1,25 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import FeedScreen from './FeedScreen';
+import NotificationsScreen from './NotificationsScreen';
+
+const Tab = createBottomTabNavigator();
 
 const Home: React.FC = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Hello World</Text>
-    </View>
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
+      <Tab.Screen name="Home" component={FeedScreen} />
+      <Tab.Screen name="Connect" component={FeedScreen} />
+      <Tab.Screen name="Add New" component={FeedScreen} />
+      <Tab.Screen name="Notifications" component={NotificationsScreen} />
+      <Tab.Screen name="Messages" component={NotificationsScreen} />
+    </Tab.Navigator>
   );
 };
 
 export default Home;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
-  },
-  text: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#2d3436',
-  },
-});
 
 // import React, { useEffect } from "react";
 // import { View, Text, Image, StyleSheet } from "react-native";
