@@ -6,7 +6,7 @@ const Stack = createNativeStackNavigator();
 
 const AppNavigator: React.FC = () => (
   <Stack.Navigator>
-    <Stack.Screen name="Startup Overflow" component={Home} />
+    <Stack.Screen name="Startup Overflow" component={Home} options={{headerShown: false}}/>
   </Stack.Navigator>
 );
 

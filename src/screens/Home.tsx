@@ -1,190 +1,61 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import FeedScreen from './FeedScreen';
+import { View, Text } from 'react-native';
+import { Provider, BottomNavigation } from 'react-native-paper';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import {
+  faHome,
+  faUser,
+  faPlus,
+  faBell,
+  faEnvelope,
+} from '@fortawesome/free-solid-svg-icons';
+import NetworkScreen from './NetworkScreen';
+import CreatePostScreen from './CreatePostScreen';
+import NewsFeedScreen from './NewsFeedScreen';
 import NotificationsScreen from './NotificationsScreen';
-
-const Tab = createBottomTabNavigator();
+import ChatScreen from './ChatScreen';
+import MessagesScreen from './MessageScreen';
 
 const Home: React.FC = () => {
+  const [index, setIndex] = React.useState(0);
+
+  const routes = [
+    { key: 'home', title: 'Home', icon: faHome },
+    { key: 'connect', title: 'Connect', icon: faUser },
+    { key: 'add', title: 'Add New', icon: faPlus },
+    { key: 'notifications', title: 'Notifications', icon: faBell },
+    { key: 'messages', title: 'Messages', icon: faEnvelope },
+  ];
+
+  const renderScene = BottomNavigation.SceneMap({
+    home: () => <NewsFeedScreen onNavigate={() => setIndex(0)} />,
+    connect: NetworkScreen,
+    add: () => <CreatePostScreen onNavigate={() => setIndex(0)} />,
+    notifications: NotificationsScreen,
+    messages: MessagesScreen,
+  });
+
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen name="Home" component={FeedScreen} />
-      <Tab.Screen name="Connect" component={FeedScreen} />
-      <Tab.Screen name="Add New" component={FeedScreen} />
-      <Tab.Screen name="Notifications" component={NotificationsScreen} />
-      <Tab.Screen name="Messages" component={NotificationsScreen} />
-    </Tab.Navigator>
+    <Provider>
+      <BottomNavigation
+        navigationState={{ index, routes }}
+        onIndexChange={setIndex}
+        renderScene={renderScene}
+        shifting={true}
+        labeled={true}
+        barStyle={{ backgroundColor: '#fff' }}
+        activeColor="tomato"
+        inactiveColor="gray"
+        renderIcon={({ route, focused, color }) => (
+          <FontAwesomeIcon
+            icon={route.icon}
+            color={color}
+            size={focused ? 28 : 22}
+          />
+        )}
+      />
+    </Provider>
   );
 };
 
 export default Home;
-
-
-// import React, { useEffect } from "react";
-// import { View, Text, Image, StyleSheet } from "react-native";
-// import { createDrawerNavigator } from '@react-navigation/drawer';
-// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-// import { ScrollView } from "react-native-gesture-handler";
-// import FontAwesome from 'react-native-vector-icons/FontAwesome';
-// import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-// import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-// import { ListItem, Avatar, Text as MaterialText } from "@react-native-material/core";
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-// import { NavigationProp, ParamListBase, useNavigation, DrawerActions } from '@react-navigation/native';
-// // import HeaderIcons from "../components/HeaderIcons";
-// // import { isNotLogedIn } from "./Auth";
-// import { TouchableOpacity } from "react-native";
-// import Ionicons from "react-native-vector-icons/Ionicons";
-
-// const Drawer = createDrawerNavigator();
-// const Tab = createBottomTabNavigator();
-// const bottomHeight = 60;
-
-// interface NavProps {
-//   navigation: NavigationProp<ParamListBase>;
-// }
-
-// /* ✅ Minimal Placeholder Screens */
-// const PlaceholderScreen = ({ title }: { title: string }) => (
-//   <View style={styles.center}>
-//     <Text style={styles.title}>{title} Screen</Text>
-//   </View>
-// );
-
-// const Blogs = () => <PlaceholderScreen title="Blogs" />;
-// const Mentors = () => <PlaceholderScreen title="Mentors" />;
-// const MyResources = () => <PlaceholderScreen title="My Resources" />;
-// const Discussion = () => <PlaceholderScreen title="Discussion" />;
-// const Learn = () => <PlaceholderScreen title="Learn" />;
-// const Partners = () => <PlaceholderScreen title="Partners" />;
-// const Investors = () => <PlaceholderScreen title="Investors" />;
-// const Incubators = () => <PlaceholderScreen title="Incubators" />;
-// const Schemes = () => <PlaceholderScreen title="Schemes" />;
-// const OnlineCourses = () => <PlaceholderScreen title="Online Courses" />;
-// const Events = () => <PlaceholderScreen title="Events" />;
-// const Books = () => <PlaceholderScreen title="Books" />;
-
-// /* ✅ Bottom Tab Navigator */
-// const Footer: React.FC<NavProps> = ({ navigation }) => {
-//   // useEffect(() => {
-//   //   (async () => {
-//   //     if (await isNotLogedIn()) {
-//   //       navigation.navigate("Home");
-//   //     }
-//   //   })();
-//   // }, []);
-
-//   return (
-//     <Tab.Navigator screenOptions={{ headerShown: false, tabBarStyle: { height: bottomHeight } }}>
-//       <Tab.Screen name="MyResources" component={MyResources} options={{
-//         title: 'Resources',
-//         tabBarIcon: () => (<FontAwesome5 name="box-open" size={20} />),
-//       }} />
-//       <Tab.Screen name="Learn" component={Learn} options={{
-//         title: 'Learn',
-//         tabBarIcon: () => (<FontAwesome name="graduation-cap" size={20} />),
-//       }} />
-//       <Tab.Screen name="Add" component={Blogs} options={{
-//         title: 'New',
-//         tabBarIcon: () => (<MaterialIcons name="add-circle-outline" size={24} />),
-//       }} />
-//       <Tab.Screen name="Blogs" component={Blogs} options={{
-//         title: 'Feed',
-//         tabBarIcon: () => (<FontAwesome name="feed" size={20} />),
-//       }} />
-//       <Tab.Screen name="Discussion" component={Discussion} options={{
-//         title: 'Discussion',
-//         tabBarIcon: () => (<MaterialIcons name="question-answer" size={22} />),
-//       }} />
-//     </Tab.Navigator>
-//   );
-// };
-
-// const HeaderIcons: React.FC = () => {
-//   const navigation = useNavigation<NavigationProp<ParamListBase>>();
-
-//   return (
-//     <View style={{ flexDirection: "row", alignItems: "center", marginRight: 10 }}>
-//       {/* Drawer Toggle Button */}
-//       <TouchableOpacity
-//         onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
-//         style={{ marginHorizontal: 8 }}
-//       >
-//         <MaterialIcons name="menu" size={26} color="#000" />
-//       </TouchableOpacity>
-
-//       {/* Notifications Button */}
-//       <TouchableOpacity
-//         onPress={() => navigation.navigate("Notifications" as never)}
-//         style={{ marginHorizontal: 8 }}
-//       >
-//         <Ionicons name="notifications-outline" size={24} color="#000" />
-//       </TouchableOpacity>
-
-//       {/* Profile Button */}
-//       <TouchableOpacity
-//         onPress={() => navigation.navigate("Profile" as never)}
-//         style={{ marginHorizontal: 8 }}
-//       >
-//         <Ionicons name="person-circle-outline" size={28} color="#000" />
-//       </TouchableOpacity>
-//     </View>
-//   );
-// };
-
-
-// /* ✅ Drawer Wrapper */
-// const Home: React.FC<NavProps> = () => {
-//   return (
-//     <Drawer.Navigator
-//       initialRouteName="Home"
-//       // screenOptions={{ headerTitle: HeaderLogo, headerRight: () => <HeaderIcons /> }}
-//       drawerContent={(drawerProps:any) => <CustomDrawer {...drawerProps} />}
-//     >
-//       <Drawer.Screen name="Home" component={Footer} />
-//       <Drawer.Screen name="Mentors" component={Mentors} />
-//       <Drawer.Screen name="Partners" component={Partners} />
-//       <Drawer.Screen name="Investors" component={Investors} />
-//       <Drawer.Screen name="Incubators" component={Incubators} />
-//       <Drawer.Screen name="Schemes" component={Schemes} />
-//       <Drawer.Screen name="Courses" component={OnlineCourses} />
-//       <Drawer.Screen name="Events" component={Events} />
-//       <Drawer.Screen name="Books" component={Books} />
-//     </Drawer.Navigator>
-//   );
-// };
-
-// /* ✅ Header Logo */
-// // const HeaderLogo = () => (
-// //   // <Image source={require('../assets/images/azadi.png')} style={{ width: 170, height: 80 }} resizeMode="contain" />
-// // );
-
-// /* ✅ Drawer Content */
-// const CustomDrawer = ({ navigation }: NavProps) => (
-//   <ScrollView style={{ backgroundColor: '#404040' }}>
-//     <View style={{ alignItems: 'center', margin: 10 }}>
-//       <Avatar image={{ uri: "https://avatars.githubusercontent.com/u/55041104?v=4" }} size={120} />
-//       <MaterialText variant="h6" style={{ color: 'white', marginTop: 10 }}>Ujjwal Kar</MaterialText>
-//     </View>
-//     <DrawerItem label="Home" icon="home" onPress={() => navigation.navigate('Home')} />
-//     <DrawerItem label="Mentors" icon="chalkboard-teacher" onPress={() => navigation.navigate('Mentors')} />
-//     <DrawerItem label="Books" icon="bookshelf" onPress={() => navigation.navigate('Books')} />
-//     <DrawerItem label="Logout" icon="logout" onPress={async () => {
-//       await AsyncStorage.removeItem('token');
-//       navigation.navigate('Home');
-//     }} />
-//   </ScrollView>
-// );
-
-// const DrawerItem = ({ label, icon, onPress }: { label: string; icon: string; onPress: () => void }) => (
-//   <ListItem title={label} leading={<FontAwesome5 name={icon} size={18} color="white" />} onPress={onPress} />
-// );
-
-// /* ✅ Basic Styling */
-// const styles = StyleSheet.create({
-//   center: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#f2f2f2' },
-//   title: { fontSize: 24, fontWeight: 'bold', color: '#333' },
-// });
-
-// export default Home;
